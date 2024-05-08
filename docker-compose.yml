@@ -1,28 +1,8 @@
 version: '3.1'
 services:
-  init_addons:
-    image: bitnami/git:2.44.0
-    container_name: init_addons
-    entrypoint: "/bin/sh -c /downloaded-addons/fetch.sh"
-    # entrypoint: >
-    #   /bin/sh -c "
-    #   if [ -d "/downloaded-addons/hr_timesheet_sheet" ]; then exit 0; fi
-    #   ls -l /downloaded-addons;
-    #   git clone --branch 13.0 --depth 1 --filter=blob:none --sparse https://github.com/OCA/timesheet.git;
-    #   cd timesheet;
-    #   git sparse-checkout set hr_timesheet_sheet;
-    #   ls -l;
-    #   cd ..;
-    #   mv timesheet/hr_timesheet_sheet /downloaded-addons;
-    #   ls -l /downloaded-addons;
-    #   exit 0;
-    #   "
-    volumes:
-      - ./addons:/downloaded-addons
   web:
     image: odoo:13.0
     depends_on:
-      - init_addons
       - db
     ports:
       - "8069:8069"
