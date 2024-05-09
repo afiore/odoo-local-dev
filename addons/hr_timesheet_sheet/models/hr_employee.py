@@ -1,4 +1,4 @@
-# Copyright 2018 ForgeFlow, S.L.
+# Copyright 2018 Eficent Business and IT Consulting Services, S.L.
 # Copyright 2019 Brainbean Apps (https://brainbeanapps.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
@@ -9,11 +9,6 @@ from odoo.exceptions import ValidationError
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    timesheet_sheet_ids = fields.One2many(
-        comodel_name="hr_timesheet.sheet",
-        inverse_name="employee_id",
-        string="Timesheet Sheets",
-    )
     timesheet_sheet_count = fields.Integer(
         compute="_compute_timesheet_sheet_count", string="Timesheet Sheets Count"
     )

@@ -17,15 +17,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-07 08:56+0000\n"
-"PO-Revision-Date: 2023-10-13 11:39+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2020-02-13 15:53+0000\n"
+"Last-Translator: Apruzzese Francesco <opencode@e-ware.org>\n"
 "Language-Team: Italian (https://www.transifex.com/odoo/teams/41243/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.res_config_settings_view_form
@@ -35,18 +35,18 @@ msgid ""
 "\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
 "<span class=\"fa fa-lg fa-building\" title=\"I valori impostati qui sono "
-"specifici per azienda.\" aria-label=\"I valori impostati qui sono specifici "
-"per azienda.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+"specifici per azienda.\" aria-label=\"Values set here are company-specific."
+"\" groups=\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.view_hr_timesheet_sheet_kanban
 msgid "<span class=\"text-muted text-nowrap\">Period</span>"
-msgstr "<span class=\"text-muted text-nowrap\">Periodo</span>"
+msgstr ""
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.view_hr_timesheet_sheet_kanban
 msgid "<span class=\"text-muted text-nowrap\">Total time</span>"
-msgstr "<span class=\"text-muted text-nowrap\">Tempo totale</span>"
+msgstr ""
 
 #. module: hr_timesheet_sheet
 #: model:ir.model,name:hr_timesheet_sheet.model_hr_timesheet_sheet_line_abstract
@@ -55,8 +55,9 @@ msgstr "Riga prospetto foglio ore astratto"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__access_warning
+#, fuzzy
 msgid "Access warning"
-msgstr "Avviso accesso"
+msgstr "Avviso di accesso"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_needaction
@@ -67,11 +68,6 @@ msgstr "Azione richiesta"
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_ids
 msgid "Activities"
 msgstr "Attività"
-
-#. module: hr_timesheet_sheet
-#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_exception_decoration
-msgid "Activity Exception Decoration"
-msgstr "Decorazione eccezione attività"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_state
@@ -106,7 +102,7 @@ msgid "Approve"
 msgstr "Approva"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__hr_timesheet_sheet__state__done
+#: selection:hr_timesheet.sheet,state:0
 #: model:mail.message.subtype,description:hr_timesheet_sheet.mt_timesheet_approved
 #: model:mail.message.subtype,name:hr_timesheet_sheet.mt_timesheet_approved
 msgid "Approved"
@@ -118,19 +114,24 @@ msgid "Attachment Count"
 msgstr "Numero allegati"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_sheet_review_policy__hr_manager
-msgid "By HR Managers"
-msgstr "Da responsabili RU"
+#: selection:res.company,timesheet_sheet_review_policy:0
+msgid "By Department Manager"
+msgstr "Per responsabile ufficio"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_sheet_review_policy__hr
-msgid "By HR Officers"
-msgstr "Da funzionari RU"
+#: selection:res.company,timesheet_sheet_review_policy:0
+msgid "By Direct Manager"
+msgstr "Per responsabile diretto"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_sheet_review_policy__timesheet_manager
-msgid "By Timesheets Managers"
-msgstr "Da responsabili fogli ore"
+#: selection:res.company,timesheet_sheet_review_policy:0
+msgid "By HR Manager/Officer"
+msgstr "Per responsabile/direttore RU"
+
+#. module: hr_timesheet_sheet
+#: selection:res.company,timesheet_sheet_review_policy:0
+msgid "By Project Manager"
+msgstr "Per responsabile progetto"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__can_review
@@ -138,22 +139,22 @@ msgid "Can Review"
 msgstr "Può revisionare"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:579
 #, python-format
 msgid "Cannot approve a non-submitted sheet."
 msgstr "Impossibile approvare un prospetto non inviato."
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:589
 #, python-format
 msgid "Cannot reject a non-submitted sheet."
 msgstr "Impossibile rifiutare un prospetto non inviato."
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:563
 #, python-format
 msgid "Cannot revert to draft a non-approved sheet."
-msgstr "Impossibile reimpostare a bozza un prospetto non approvato."
+msgstr "Impossibile reimpostare a bozza un prospetto non inviato."
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.res_config_settings_view_form
@@ -211,7 +212,7 @@ msgstr "Creato il"
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__access_url
 msgid "Customer Portal URL"
-msgstr "URL portale cliente"
+msgstr "URL del portale clienti"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet_line__date
@@ -236,14 +237,14 @@ msgid "Date To"
 msgstr "Alla data"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__sheet_range__daily
+#: selection:res.company,sheet_range:0
 msgid "Day"
 msgstr "Giorno"
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.view_hr_timesheet_sheet_kanban
 msgid "Delete"
-msgstr "Elimina"
+msgstr ""
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__department_id
@@ -272,12 +273,12 @@ msgstr "Prospetti foglio ore in bozza"
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.view_hr_timesheet_sheet_kanban
 msgid "Dropdown menu"
-msgstr "Menu a tendina"
+msgstr ""
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.view_hr_timesheet_sheet_kanban
 msgid "Edit"
-msgstr "Modifica"
+msgstr ""
 
 #. module: hr_timesheet_sheet
 #: model:ir.model,name:hr_timesheet_sheet.model_hr_employee
@@ -303,48 +304,48 @@ msgstr "Dipendenti"
 #: model_terms:ir.actions.act_window,help:hr_timesheet_sheet.act_hr_timesheet_sheet_to_review
 msgid ""
 "Employees must record timesheets every day and confirm at the end\n"
-"            of the reporting period. Once the timesheet sheet is confirmed, "
+"            of the repording period. Once the timesheet sheet is confirmed, "
 "it should be\n"
 "            validated by a reviewer."
 msgstr ""
-"I dipendenti devono registrare i fogli ore ogni giorno e confermarli alla "
-"fine\n"
-"            del periodo del resoconto. Una volta che il prospetto fogli ore "
-"è confermato,\n"
-"            deve essere validato da un revisore."
+"I fogli ore devono essere registrati giornalmente dai dipendenti e "
+"confermati\n"
+"            al termine del periodo di rendicontazione. Dopo la conferma, il "
+"prospetto deve essere\n"
+"            approvato da un revisore."
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.actions.act_window,help:hr_timesheet_sheet.act_hr_timesheet_sheet_all_timesheets
 msgid ""
 "Employees must record timesheets in the sheet every day and confirm at the "
 "end\n"
-"             of the reporting period. Once the timesheet sheet is confirmed, "
+"             of the repording period. Once the timesheet sheet is confirmed, "
 "it should be\n"
 "             validated by a reviewer."
 msgstr ""
-"I dipendenti devono registrare i fogli ore nel prospetto ogni giorno e "
-"confermarli alla fine\n"
-"            del periodo del resoconto. Una volta che il prospetto fogli ore "
-"è confermato,\n"
-"            deve essere validato da un revisore."
+"I dipendenti devono registrare giornalmente i fogli ore nel prospetto e "
+"confermarli al\n"
+"            termine del periodo di rendicontazione. Dopo la conferma, il "
+"prospetto deve essere\n"
+"            approvato da un revisore."
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_follower_ids
 msgid "Followers"
-msgstr "Seguito da"
+msgstr "Chi segue"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_channel_ids
 msgid "Followers (Channels)"
-msgstr "Seguito da (canali)"
+msgstr "Chi segue (canali)"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Seguito da (partner)"
+msgstr "Chi segue (partner)"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_week_start__4
+#: selection:res.company,timesheet_week_start:0
 msgid "Friday"
 msgstr "Venerdì"
 
@@ -378,26 +379,19 @@ msgid "ID"
 msgstr "ID"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_exception_icon
-msgid "Icon"
-msgstr "Icona"
-
-#. module: hr_timesheet_sheet
-#: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_exception_icon
-msgid "Icon to indicate an exception activity."
-msgstr "Icona per indicare un'attività eccezione."
+#: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Se selezionato, nuovi messaggi richiedono attenzione."
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__message_needaction
-#: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__message_unread
 msgid "If checked, new messages require your attention."
-msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
+msgstr "Se selezionato, nuovi messaggi richiedono attenzione."
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__message_has_error
-#: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
+msgstr "Se selezionato, alcuni messaggi presentano un errore di consegna."
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__add_line_project_id
@@ -423,7 +417,7 @@ msgid "In Draft"
 msgstr "In bozza"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:494
 #, python-format
 msgid ""
 "In order to create a sheet for this employee, you must link him/her to an "
@@ -433,7 +427,7 @@ msgstr ""
 "utente: %s"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:603
 #, python-format
 msgid ""
 "In order to review a timesheet sheet, your user needs to be linked to an "
@@ -445,7 +439,7 @@ msgstr ""
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_is_follower
 msgid "Is Follower"
-msgstr "Segue"
+msgstr "Sta seguendo"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet____last_update
@@ -485,12 +479,12 @@ msgid "Messages"
 msgstr "Messaggi"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_week_start__0
+#: selection:res.company,timesheet_week_start:0
 msgid "Monday"
 msgstr "Lunedì"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__sheet_range__monthly
+#: selection:res.company,sheet_range:0
 msgid "Month"
 msgstr "Mese"
 
@@ -503,11 +497,15 @@ msgstr "I miei prospetti foglio ore"
 #. module: hr_timesheet_sheet
 #: model:ir.actions.act_window,name:hr_timesheet_sheet.act_hr_timesheet_line_to_submit_my
 #: model:ir.ui.menu,name:hr_timesheet_sheet.menu_act_hr_timesheet_line_to_submit_my
+#, fuzzy
+#| msgid "Timesheets to Submit"
 msgid "My Timesheets to Submit"
 msgstr "Fogli ore da inviare"
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.actions.act_window,help:hr_timesheet_sheet.act_hr_timesheet_line_to_submit_my
+#, fuzzy
+#| msgid "Timesheets to submit."
 msgid "My timesheets to submit."
 msgstr "Fogli ore da inviare."
 
@@ -517,7 +515,7 @@ msgid "Name"
 msgstr "Nome"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__hr_timesheet_sheet__state__new
+#: selection:hr_timesheet.sheet,state:0
 msgid "New"
 msgstr "Nuovo"
 
@@ -544,12 +542,14 @@ msgstr "Riepilogo prossima attività"
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_type_id
 msgid "Next Activity Type"
-msgstr "Tipo prossima attività"
+msgstr "Tipologia prossima attività"
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.hr_timesheet_line_search
+#, fuzzy
+#| msgid "Submitted"
 msgid "Not Submitted"
-msgstr "Non inviato"
+msgstr "Inviato"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_needaction_counter
@@ -558,7 +558,7 @@ msgstr "Numero di azioni"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_has_error_counter
-msgid "Number of errors"
+msgid "Number of error"
 msgstr "Numero di errori"
 
 #. module: hr_timesheet_sheet
@@ -577,15 +577,25 @@ msgid "Number of unread messages"
 msgstr "Numero di messaggi non letti"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:613
 #, python-format
 msgid "Only a HR Officer or Manager can review the sheet."
 msgstr "Solo un direttore o un responsabile RU può revisionare il prospetto."
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__hr_timesheet_sheet__state__draft
+#: selection:hr_timesheet.sheet,state:0
 msgid "Open"
 msgstr "Aperti"
+
+#. module: hr_timesheet_sheet
+#: selection:hr_timesheet.sheet,activity_state:0
+msgid "Overdue"
+msgstr "In ritardo"
+
+#. module: hr_timesheet_sheet
+#: selection:res.company,sheet_range:0
+msgid "Payroll Period"
+msgstr "Periodo libro paga"
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.hr_timesheet_sheet_tree
@@ -593,9 +603,14 @@ msgid "Period"
 msgstr "Periodo"
 
 #. module: hr_timesheet_sheet
+#: selection:hr_timesheet.sheet,activity_state:0
+msgid "Planned"
+msgstr "Pianificata"
+
+#. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__access_url
 msgid "Portal Access URL"
-msgstr "URL accesso portale"
+msgstr "URL di accesso al portale"
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet_line__project_id
@@ -644,17 +659,12 @@ msgid "Reviewer"
 msgstr "Revisore"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Errore consegna SMS"
-
-#. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_week_start__5
+#: selection:res.company,timesheet_week_start:0
 msgid "Saturday"
 msgstr "Sabato"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:926
 #, python-format
 msgid "Save the Timesheet Sheet first."
 msgstr "Salvare prima il prospetto foglio ore."
@@ -695,12 +705,6 @@ msgid "Sheet"
 msgstr "Prospetto"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_account_analytic_line__sheet_state
-#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_switch__sheet_state
-msgid "Sheet State"
-msgstr "Stato prospetto"
-
-#. module: hr_timesheet_sheet
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_res_config_settings__timesheet_week_start
 msgid "Starting day for Timesheet Sheets."
 msgstr "Giorno iniziale per i prospetti foglio ore."
@@ -718,10 +722,16 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Stato in base alle attività\n"
-"Scaduto: la data richiesta è trascorsa\n"
-"Oggi: la data attività è oggi\n"
+"Stato basato sulle attività\n"
+"In ritardo: data di scadenza già superata\n"
+"Oggi: attività in data odierna\n"
 "Pianificato: attività future."
+
+#. module: hr_timesheet_sheet
+#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_account_analytic_line__sheet_state
+#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_switch__sheet_state
+msgid "Steet State"
+msgstr "Stato prospetto"
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.hr_timesheet_sheet_form
@@ -745,7 +755,7 @@ msgid "Summary"
 msgstr "Riepilogo"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_week_start__6
+#: selection:res.company,timesheet_week_start:0
 msgid "Sunday"
 msgstr "Domenica"
 
@@ -762,7 +772,7 @@ msgid "Temporary Timesheets"
 msgstr "Fogli ore temporanei"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:321
 #, python-format
 msgid ""
 "The Company in the Timesheet Sheet and in the Department must be the same."
@@ -770,7 +780,7 @@ msgstr ""
 "L'azienda del prospetto foglio ore e dell'ufficio devono corrispondere."
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:311
 #, python-format
 msgid ""
 "The Company in the Timesheet Sheet and in the Employee must be the same."
@@ -778,14 +788,14 @@ msgstr ""
 "L'azienda del prospetto foglio ore e del dipendente devono corrispondere."
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:331
 #, python-format
 msgid "The Company in the Timesheet Sheet and in the Project must be the same."
 msgstr ""
 "L'azienda del prospetto foglio ore e del progetto devono corrispondere."
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:341
 #, python-format
 msgid "The Company in the Timesheet Sheet and in the Task must be the same."
 msgstr "L'azienda del prospetto foglio ore e del lavoro devono corrispondere."
@@ -794,16 +804,16 @@ msgstr "L'azienda del prospetto foglio ore e del lavoro devono corrispondere."
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_res_company__sheet_range
 #: model:ir.model.fields,help:hr_timesheet_sheet.field_res_config_settings__sheet_range
 msgid "The range of your Timesheet Sheet."
-msgstr "Periodo del prospetto foglio ore."
+msgstr "L'intervallo del prospetto foglio ore."
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:263
 #, python-format
 msgid "The start date cannot be later than the end date."
 msgstr "La data di inizio non può essere successiva alla data di fine."
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_week_start__3
+#: selection:res.company,timesheet_week_start:0
 msgid "Thursday"
 msgstr "Giovedì"
 
@@ -853,11 +863,10 @@ msgstr "Intervallo prospetto foglio ore"
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_res_company__timesheet_sheet_review_policy
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_res_config_settings__timesheet_sheet_review_policy
 msgid "Timesheet Sheet Review Policy"
-msgstr "Politica revisione prospetto foglio ore"
+msgstr "Politica di revisione prospetto foglio ore"
 
 #. module: hr_timesheet_sheet
 #: model:ir.actions.act_window,name:hr_timesheet_sheet.act_hr_employee_2_hr_timesheet
-#: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_employee__timesheet_sheet_ids
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.hr_timesheet_sheet_tree
 msgid "Timesheet Sheets"
 msgstr "Prospetti foglio ore"
@@ -940,19 +949,19 @@ msgid "To Review"
 msgstr "Da revisionare"
 
 #. module: hr_timesheet_sheet
+#: selection:hr_timesheet.sheet,activity_state:0
+msgid "Today"
+msgstr "Oggi"
+
+#. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__total_time
 msgid "Total Time"
 msgstr "Durata totale"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_week_start__1
+#: selection:res.company,timesheet_week_start:0
 msgid "Tuesday"
 msgstr "Martedì"
-
-#. module: hr_timesheet_sheet
-#: model:ir.model.fields,help:hr_timesheet_sheet.field_hr_timesheet_sheet__activity_exception_decoration
-msgid "Type of the exception activity on record."
-msgstr "Tipo di attività eccezione sul record."
 
 #. module: hr_timesheet_sheet
 #: model:ir.model.fields,field_description:hr_timesheet_sheet.field_hr_timesheet_sheet__message_unread
@@ -971,7 +980,7 @@ msgid "User"
 msgstr "Utente"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__hr_timesheet_sheet__state__confirm
+#: selection:hr_timesheet.sheet,state:0
 #: model:mail.message.subtype,name:hr_timesheet_sheet.mt_timesheet_confirmed
 msgid "Waiting Review"
 msgstr "In attesa di revisione"
@@ -982,7 +991,7 @@ msgid "Waiting review"
 msgstr "In attesa di revisione"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:925
 #, python-format
 msgid "Warning"
 msgstr "Attenzione"
@@ -998,17 +1007,17 @@ msgid "Website communication history"
 msgstr "Cronologia comunicazioni sito web"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__timesheet_week_start__2
+#: selection:res.company,timesheet_week_start:0
 msgid "Wednesday"
 msgstr "Mercoledì"
 
 #. module: hr_timesheet_sheet
-#: model:ir.model.fields.selection,name:hr_timesheet_sheet.selection__res_company__sheet_range__weekly
+#: selection:res.company,sheet_range:0
 msgid "Week"
 msgstr "Settimana"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:206
 #, python-format
 msgid "Week %s"
 msgstr "Settimana %s"
@@ -1024,21 +1033,21 @@ msgid "Week start day"
 msgstr "Giorno di inizio settimana"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:210
 #, python-format
 msgid "Weeks %s - %s"
 msgstr "Settimane %s -%s"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/account_analytic_account.py:0
-#: code:addons/hr_timesheet_sheet/models/hr_department.py:0
-#: code:addons/hr_timesheet_sheet/models/hr_employee.py:0
+#: code:addons/hr_timesheet_sheet/models/account_analytic_account.py:17
+#: code:addons/hr_timesheet_sheet/models/hr_department.py:39
+#: code:addons/hr_timesheet_sheet/models/hr_employee.py:34
 #, python-format
 msgid "You cannot change the company, as this %s (%s) is assigned to %s (%s)."
 msgstr "Impossibile cambiare l'azienda, %s (%s) è assegnato a %s (%s)."
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/account_analytic_line.py:0
+#: code:addons/hr_timesheet_sheet/models/account_analytic_line.py:59
 #, python-format
 msgid ""
 "You cannot create a timesheet of a different company than the one of the "
@@ -1052,7 +1061,7 @@ msgstr ""
 " - %s di %s"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:535
 #, python-format
 msgid ""
 "You cannot delete a timesheet sheet which is already submitted or confirmed: "
@@ -1061,13 +1070,13 @@ msgstr ""
 "Impossibile eliminare un prospetto foglio ore già inviato o confermato: %s"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:506
 #, python-format
 msgid "You cannot duplicate a sheet."
 msgstr "Impossibile duplicare un prospetto."
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:0
+#: code:addons/hr_timesheet_sheet/models/hr_timesheet_sheet.py:300
 #, python-format
 msgid ""
 "You cannot have 2 or more sheets that overlap!\n"
@@ -1081,7 +1090,7 @@ msgstr ""
 " - %s"
 
 #. module: hr_timesheet_sheet
-#: code:addons/hr_timesheet_sheet/models/account_analytic_line.py:0
+#: code:addons/hr_timesheet_sheet/models/account_analytic_line.py:136
 #, python-format
 msgid "You cannot modify an entry in a confirmed timesheet sheet: %s"
 msgstr ""
@@ -1089,112 +1098,42 @@ msgstr ""
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.actions.act_window,help:hr_timesheet_sheet.act_hr_timesheet_line_to_submit_my
+#, fuzzy
+#| msgid ""
+#| "Employees must record timesheets every day and confirm at the end\n"
+#| "            of the repording period. Once the timesheet sheet is "
+#| "confirmed, it should be\n"
+#| "            validated by a reviewer."
 msgid ""
 "You must record timesheets every day and confirm at the end\n"
-"            of the reporting period. Once the timesheet sheet is confirmed, "
+"            of the repording period. Once the timesheet sheet is confirmed, "
 "it should be\n"
 "            validated by a reviewer."
 msgstr ""
-"Bisogna compilare i fogli ore ogni giorno e confermarlo alla fine\n"
-"            del periodo del resoconto. Una volta che il prospetto foglio ore "
-"è confermato,\n"
-"            deve essere validato da un revisore."
+"I fogli ore devono essere registrati giornalmente dai dipendenti e "
+"confermati\n"
+"            al termine del periodo di rendicontazione. Dopo la conferma, il "
+"prospetto deve essere\n"
+"            approvato da un revisore."
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.actions.act_window,help:hr_timesheet_sheet.act_hr_timesheet_sheet_my_timesheets
 msgid ""
 "You must record timesheets in the sheet every day and confirm at the end\n"
-"             of the reporting period. Once the timesheet sheet is confirmed, "
+"             of the repording period. Once the timesheet sheet is confirmed, "
 "it should be\n"
 "             validated by a reviewer."
 msgstr ""
-"Bisogna compilare il fogli ore nel prospetto ogni giorno e confermarlo alla "
-"fine\n"
-"            del periodo del resoconto. Una volta che il foglio del foglio "
-"ore è confermato,\n"
-"            deve essere validato da un revisore."
+"I fogli ore devono essere registrati giornalmente nel prospetto e confermati "
+"al\n"
+"            termine del periodo di rendicontazione. Dopo la conferma, il "
+"prospetto deve essere\n"
+"            approvato da un revisore."
 
 #. module: hr_timesheet_sheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_sheet.hr_timesheet_sheet_form
 msgid "to"
 msgstr "fino al"
-
-#~ msgid ""
-#~ "Employees must record timesheets every day and confirm at the end\n"
-#~ "            of the repording period. Once the timesheet sheet is "
-#~ "confirmed, it should be\n"
-#~ "            validated by a reviewer."
-#~ msgstr ""
-#~ "I fogli ore devono essere registrati giornalmente dai dipendenti e "
-#~ "confermati\n"
-#~ "            al termine del periodo di rendicontazione. Dopo la conferma, "
-#~ "il prospetto deve essere\n"
-#~ "            approvato da un revisore."
-
-#~ msgid ""
-#~ "Employees must record timesheets in the sheet every day and confirm at "
-#~ "the end\n"
-#~ "             of the repording period. Once the timesheet sheet is "
-#~ "confirmed, it should be\n"
-#~ "             validated by a reviewer."
-#~ msgstr ""
-#~ "I dipendenti devono registrare giornalmente i fogli ore nel prospetto e "
-#~ "confermarli al\n"
-#~ "            termine del periodo di rendicontazione. Dopo la conferma, il "
-#~ "prospetto deve essere\n"
-#~ "            approvato da un revisore."
-
-#, fuzzy
-#~ msgid ""
-#~ "You must record timesheets every day and confirm at the end\n"
-#~ "            of the repording period. Once the timesheet sheet is "
-#~ "confirmed, it should be\n"
-#~ "            validated by a reviewer."
-#~ msgstr ""
-#~ "I fogli ore devono essere registrati giornalmente dai dipendenti e "
-#~ "confermati\n"
-#~ "            al termine del periodo di rendicontazione. Dopo la conferma, "
-#~ "il prospetto deve essere\n"
-#~ "            approvato da un revisore."
-
-#~ msgid ""
-#~ "You must record timesheets in the sheet every day and confirm at the end\n"
-#~ "             of the repording period. Once the timesheet sheet is "
-#~ "confirmed, it should be\n"
-#~ "             validated by a reviewer."
-#~ msgstr ""
-#~ "I fogli ore devono essere registrati giornalmente nel prospetto e "
-#~ "confermati al\n"
-#~ "            termine del periodo di rendicontazione. Dopo la conferma, il "
-#~ "prospetto deve essere\n"
-#~ "            approvato da un revisore."
-
-#~ msgid "By HR Manager/Officer"
-#~ msgstr "Per responsabile/direttore RU"
-
-#~ msgid "By Department Manager"
-#~ msgstr "Per responsabile ufficio"
-
-#~ msgid "By Direct Manager"
-#~ msgstr "Per responsabile diretto"
-
-#~ msgid "By Project Manager"
-#~ msgstr "Per responsabile progetto"
-
-#~ msgid "If checked new messages require your attention."
-#~ msgstr "Se selezionato, nuovi messaggi richiedono attenzione."
-
-#~ msgid "Overdue"
-#~ msgstr "In ritardo"
-
-#~ msgid "Payroll Period"
-#~ msgstr "Periodo libro paga"
-
-#~ msgid "Planned"
-#~ msgstr "Pianificata"
-
-#~ msgid "Today"
-#~ msgstr "Oggi"
 
 #~ msgid "Weeks"
 #~ msgstr "Settimane"

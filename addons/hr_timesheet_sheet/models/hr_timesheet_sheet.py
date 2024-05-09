@@ -1,4 +1,4 @@
-# Copyright 2018-2020 ForgeFlow, S.L.
+# Copyright 2018 Eficent Business and IT Consulting Services, S.L.
 # Copyright 2018-2020 Brainbean Apps (https://brainbeanapps.com)
 # Copyright 2018-2019 Onestein (<https://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
@@ -42,11 +42,11 @@ class Sheet(models.Model):
         return ResCompany._fields["timesheet_sheet_review_policy"].selection
 
     def _default_review_policy(self):
-        company = self.env.company
+        company = self.env["res.company"]._company_default_get()
         return company.timesheet_sheet_review_policy
 
     def _default_employee(self):
-        company = self.env.company
+        company = self.env["res.company"]._company_default_get()
         return self.env["hr.employee"].search(
             [("user_id", "=", self.env.uid), ("company_id", "in", [company.id, False])],
             limit=1,
@@ -117,7 +117,7 @@ class Sheet(models.Model):
             ("done", "Approved"),
         ],
         default="new",
-        tracking=True,
+        track_visibility="onchange",
         string="Status",
         required=True,
         readonly=True,
@@ -126,7 +126,7 @@ class Sheet(models.Model):
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
-        default=lambda self: self.env.company,
+        default=lambda self: self.env["res.company"]._company_default_get(),
         required=True,
         readonly=True,
     )
@@ -144,7 +144,10 @@ class Sheet(models.Model):
         states={"new": [("readonly", False)]},
     )
     reviewer_id = fields.Many2one(
-        comodel_name="hr.employee", string="Reviewer", readonly=True, tracking=True
+        comodel_name="hr.employee",
+        string="Reviewer",
+        readonly=True,
+        track_visibility="onchange",
     )
     add_line_project_id = fields.Many2one(
         comodel_name="project.project",
@@ -235,12 +238,12 @@ class Sheet(models.Model):
                 )
 
     def _get_complete_name_components(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return [self.employee_id.name_get()[0][1]]
 
     def _get_overlapping_sheet_domain(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return [
             ("id", "!=", self.id),
@@ -331,10 +334,6 @@ class Sheet(models.Model):
         res = self.env["res.users"].browse(SUPERUSER_ID)
         if self.review_policy == "hr":
             res |= self.env.ref("hr.group_hr_user").users
-        elif self.review_policy == "hr_manager":
-            res |= self.env.ref("hr.group_hr_manager").users
-        elif self.review_policy == "timesheet_manager":
-            res |= self.env.ref("hr_timesheet.group_timesheet_manager").users
         return res
 
     def _get_timesheet_sheet_company(self):
@@ -371,15 +370,15 @@ class Sheet(models.Model):
                 continue
             matrix = sheet._get_data_matrix()
             vals_list = []
-            for key in sorted(matrix, key=lambda key: sheet._get_matrix_sortby(key)):
+            for key in sorted(matrix, key=lambda key: self._get_matrix_sortby(key)):
                 vals_list.append(sheet._get_default_sheet_line(matrix, key))
                 if sheet.state in ["new", "draft"]:
                     sheet.clean_timesheets(matrix[key])
-            sheet.line_ids = [(6, 0, SheetLine.create(vals_list).ids)]
+            sheet.line_ids = SheetLine.create(vals_list)
 
     @api.model
     def _matrix_key_attributes(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return ["date", "project_id", "task_id"]
 
     @api.model
@@ -388,13 +387,14 @@ class Sheet(models.Model):
 
     @api.model
     def _get_matrix_key_values_for_line(self, aal):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return {"date": aal.date, "project_id": aal.project_id, "task_id": aal.task_id}
 
     @api.model
     def _get_matrix_sortby(self, key):
         res = []
         for attribute in key:
+            value = None
             if hasattr(attribute, "name_get"):
                 name = attribute.name_get()
                 value = name[0][1] if name else ""
@@ -426,7 +426,7 @@ class Sheet(models.Model):
             domain = sheet._get_timesheet_sheet_lines_domain()
             timesheets = AccountAnalyticLines.search(domain)
             sheet.link_timesheets_to_sheet(timesheets)
-            sheet.timesheet_ids = [(6, 0, timesheets.ids)]
+            sheet.timesheet_ids = timesheets
 
     @api.onchange("date_start", "date_end", "employee_id")
     def _onchange_scope(self):
@@ -460,7 +460,7 @@ class Sheet(models.Model):
     @api.model
     def _check_employee_user_link(self, vals):
         if "employee_id" in vals:
-            employee = self.env["hr.employee"].sudo().browse(vals["employee_id"])
+            employee = self.env["hr.employee"].browse(vals["employee_id"])
             if not employee.user_id:
                 raise UserError(
                     _(
@@ -510,12 +510,12 @@ class Sheet(models.Model):
         return super().unlink()
 
     def _get_informables(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return self.employee_id.parent_id.user_id.partner_id
 
     def _get_subscribers(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         subscribers = self._get_possible_reviewers().mapped("partner_id")
         subscribers |= self._get_informables()
@@ -584,7 +584,7 @@ class Sheet(models.Model):
             locale=(self.env.context.get("lang") or self.env.user.lang or "en_US"),
         )
         name = re.sub(r"(\s*[^\w\d\s])\s+", r"\1\n", name)
-        name = re.sub(r"([\w\d])\s([\w\d])", "\\1\u00A0\\2", name)
+        name = re.sub(r"([\w\d])\s([\w\d])", u"\\1\u00A0\\2", name)
         return name
 
     def _get_dates(self):
@@ -601,14 +601,12 @@ class Sheet(models.Model):
     def _get_line_name(self, project_id, task_id=None, **kwargs):
         self.ensure_one()
         if task_id:
-            return "{} - {}".format(
-                project_id.name_get()[0][1], task_id.name_get()[0][1]
-            )
+            return "{} - {}".format(project_id.name_get()[0][1], task_id.name_get()[0][1])
 
         return project_id.name_get()[0][1]
 
     def _get_new_line_unique_id(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return {
             "project_id": self.add_line_project_id,
@@ -672,7 +670,7 @@ class Sheet(models.Model):
         return timesheets
 
     def _is_add_line(self, row):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return (
             self.add_line_project_id == row.project_id
@@ -681,7 +679,7 @@ class Sheet(models.Model):
 
     @api.model
     def _is_line_of_row(self, aal, row):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return (
             aal.project_id.id == row.project_id.id and aal.task_id.id == row.task_id.id
         )
@@ -694,9 +692,9 @@ class Sheet(models.Model):
                 continue
             row = fields.first(rows)
             if delete_empty_rows and self._is_add_line(row):
-                check = any([line.unit_amount for line in rows])
+                check = any([l.unit_amount for l in rows])
             else:
-                check = not all([line.unit_amount for line in rows])
+                check = not all([l.unit_amount for l in rows])
             if not check:
                 continue
             row_lines = self.timesheet_ids.filtered(
@@ -728,7 +726,7 @@ class Sheet(models.Model):
 
     @api.model
     def _prepare_new_line(self, line):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return {
             "sheet_id": line.sheet_id.id,
             "date": line.date,
@@ -740,7 +738,7 @@ class Sheet(models.Model):
         }
 
     def _is_compatible_new_line(self, line_a, line_b):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return (
             line_a.project_id.id == line_b.project_id.id
@@ -764,21 +762,21 @@ class Sheet(models.Model):
 
     @api.model
     def _get_period_start(self, company, date):
-        r = company and company.sheet_range or "WEEKLY"
-        if r == "WEEKLY":
+        r = company and company.sheet_range or 'WEEKLY'
+        if r == 'WEEKLY':
             if company.timesheet_week_start:
                 delta = relativedelta(weekday=int(company.timesheet_week_start), days=6)
             else:
                 delta = relativedelta(days=date.weekday())
             return date - delta
-        elif r == "MONTHLY":
+        elif r == 'MONTHLY':
             return date + relativedelta(day=1)
         return date
 
     @api.model
     def _get_period_end(self, company, date):
-        r = company and company.sheet_range or "WEEKLY"
-        if r == "WEEKLY":
+        r = company and company.sheet_range or 'WEEKLY'
+        if r == 'WEEKLY':
             if company.timesheet_week_start:
                 delta = relativedelta(
                     weekday=(int(company.timesheet_week_start) + 6) % 7
@@ -786,7 +784,7 @@ class Sheet(models.Model):
             else:
                 delta = relativedelta(days=6 - date.weekday())
             return date + delta
-        elif r == "MONTHLY":
+        elif r == 'MONTHLY':
             return date + relativedelta(months=1, day=1, days=-1)
         return date
 
@@ -795,12 +793,11 @@ class Sheet(models.Model):
     # ------------------------------------------------
 
     def _track_subtype(self, init_values):
-        if self:
-            record = self[0]
-            if "state" in init_values and record.state == "confirm":
-                return self.env.ref("hr_timesheet_sheet.mt_timesheet_confirmed")
-            elif "state" in init_values and record.state == "done":
-                return self.env.ref("hr_timesheet_sheet.mt_timesheet_approved")
+        self.ensure_one()
+        if "state" in init_values and self.state == "confirm":
+            return self.env.ref('hr_timesheet_sheet.mt_timesheet_confirmed')
+        elif "state" in init_values and self.state == "done":
+            return self.env.ref('hr_timesheet_sheet.mt_timesheet_approved')
         return super()._track_subtype(init_values)
 
 
@@ -817,7 +814,7 @@ class AbstractSheetLine(models.AbstractModel):
     employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
 
     def get_unique_id(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return {"project_id": self.project_id, "task_id": self.task_id}
 
@@ -833,7 +830,7 @@ class SheetLine(models.TransientModel):
 
     @api.onchange("unit_amount")
     def onchange_unit_amount(self):
-        """This method is called when filling a cell of the matrix."""
+        """ This method is called when filling a cell of the matrix. """
         self.ensure_one()
         sheet = self._get_sheet()
         if not sheet:
@@ -847,7 +844,7 @@ class SheetLine(models.TransientModel):
 
     @api.model
     def _get_sheet(self):
-        sheet = (self._origin or self).sheet_id
+        sheet = self.sheet_id
         if not sheet:
             model = self.env.context.get("params", {}).get("model", "")
             obj_id = self.env.context.get("params", {}).get("id")
@@ -863,7 +860,7 @@ class SheetNewAnalyticLine(models.TransientModel):
 
     @api.model
     def _is_similar_analytic_line(self, aal):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return (
             aal.date == self.date
             and aal.project_id.id == self.project_id.id

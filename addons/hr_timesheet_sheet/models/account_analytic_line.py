@@ -1,4 +1,4 @@
-# Copyright 2018 ForgeFlow, S.L.
+# Copyright 2018 Eficent Business and IT Consulting Services, S.L.
 # Copyright 2018-2019 Brainbean Apps (https://brainbeanapps.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
@@ -10,10 +10,10 @@ class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
     sheet_id = fields.Many2one(comodel_name="hr_timesheet.sheet", string="Sheet")
-    sheet_state = fields.Selection(string="Sheet State", related="sheet_id.state")
+    sheet_state = fields.Selection(string="Steet State", related="sheet_id.state")
 
     def _get_sheet_domain(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return [
             ("date_end", ">=", self.date),
@@ -24,7 +24,7 @@ class AccountAnalyticLine(models.Model):
         ]
 
     def _determine_sheet(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         self.ensure_one()
         return self.env["hr_timesheet.sheet"].search(self._get_sheet_domain(), limit=1)
 
@@ -82,23 +82,23 @@ class AccountAnalyticLine(models.Model):
         return super().unlink()
 
     def _check_state_on_write(self, values):
-        """Hook for extensions"""
+        """ Hook for extensions """
         if self._timesheet_should_check_write(values):
             self._check_state()
 
     @api.model
     def _timesheet_should_check_write(self, values):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return bool(set(self._get_timesheet_protected_fields()) & set(values.keys()))
 
     @api.model
     def _timesheet_should_compute_sheet(self, values):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return any(f in self._get_sheet_affecting_fields() for f in values)
 
     @api.model
     def _get_timesheet_protected_fields(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return [
             "name",
             "date",
@@ -114,13 +114,13 @@ class AccountAnalyticLine(models.Model):
 
     @api.model
     def _get_sheet_affecting_fields(self):
-        """Hook for extensions"""
+        """ Hook for extensions """
         return ["date", "employee_id", "project_id", "company_id"]
 
     def _check_state(self):
         if self.env.context.get("skip_check_state"):
             return
-        for line in self.exists().filtered("sheet_id"):
+        for line in self.filtered("sheet_id"):
             if line.sheet_id.state not in ["new", "draft"]:
                 raise UserError(
                     _(
@@ -131,8 +131,8 @@ class AccountAnalyticLine(models.Model):
                 )
 
     def merge_timesheets(self):
-        unit_amount = sum(t.unit_amount for t in self)
-        amount = sum(t.amount for t in self)
+        unit_amount = sum([t.unit_amount for t in self])
+        amount = sum([t.amount for t in self])
         self[0].write({"unit_amount": unit_amount, "amount": amount})
         self[1:].unlink()
         return self[0]
