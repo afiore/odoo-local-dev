@@ -2,7 +2,7 @@
 
 A docker-compose file providing the following configuration:
 - two containers: one for Odoo itself, the other for the PostgresSQL rdbms.
-- bundled addons are automatically loaded at startup
+- bundled addons automatically discovered at startup
 - Postgres database and file assets (e.g. uploads) are persisted in the docker volumes.
 
 ## Usage
@@ -17,9 +17,7 @@ Once you have gone through the installation wizard, you can proceed to install t
 Navigate to `Apps`, clear all filters in the search bar, then search and install the bundled addons
 in the following order:
 
-- `web_widget_x2many_2d_matrix` (this is a dependency of the timesheet module).
-- `hr_timesheet_sheet`
+- `web_widget_x2many_2d_matrix` v13.0.1.1.1 (this is a dependency of the timesheet module).
+- `hr_timesheet_sheet` v13.0.1.0.0
 
-You should now be able to log timesheets. You won't have to do anything in order to unlock the Project/task
-modules as these are automatically activated by `hr_timesheet_sheet`.
-
+You should now be able to log timesheets and associate them to projects and tasks.
